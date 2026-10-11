@@ -1,0 +1,23 @@
+{
+  "name": "primary",
+  "version": "1.0.0",
+  "description": "Tienda en línea de accesorios con una selección de anillos favoritos. Explora los diseños y haz tu pedido fácilmente por WhatsApp.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebas010699/mi-tienda-de-anillos..git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebas010699/mi-tienda-de-anillos./issues"
+  },
+  "homepage": "https://github.com/sebas010699/mi-tienda-de-anillos.#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
