@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Package manager files (optional)
+.npm
+.yarn
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
