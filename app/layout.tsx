@@ -8,7 +8,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Juli y Sebas | Joyería y accesorios exclusivos',
   description:
-    'Anillos y accesorios de diseño exclusivo. Piezas seleccionadas a mano, empaque de regalo y pago seguro con envío a toda Colombia.',
+    'Anillos y accesorios de diseño exclusivo. Piezas seleccionadas a mano, empaque de regalo y pedidos por WhatsApp con envío a toda Colombia.',
 }
 
 export const viewport: Viewport = {

@@ -1,12 +1,36 @@
 'use client'
 
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
 
 import { MAX_QUANTITY_PER_PRODUCT, getProduct } from '@/lib/products'
+
+const CART_STORAGE_KEY = 'juli-y-sebas-cart'
 
 export interface CartLine {
   id: string
   quantity: number
+}
+
+function isCartLine(value: unknown): value is CartLine {
+  if (typeof value !== 'object' || value === null || !('id' in value) || !('quantity' in value)) {
+    return false
+  }
+  return (
+    typeof value.id === 'string' &&
+    Boolean(getProduct(value.id)) &&
+    typeof value.quantity === 'number' &&
+    Number.isInteger(value.quantity) &&
+    value.quantity > 0 &&
+    value.quantity <= MAX_QUANTITY_PER_PRODUCT
+  )
 }
 
 interface CartContextValue {
@@ -27,6 +51,38 @@ const CartContext = createContext<CartContextValue | null>(null)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const [isHydrated, setIsHydrated] = useState(false)
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(CART_STORAGE_KEY)
+      if (stored) {
+        const parsed: unknown = JSON.parse(stored)
+        if (Array.isArray(parsed)) {
+          const validLines = parsed.filter(isCartLine)
+          if (validLines.length !== parsed.length) {
+            console.error('Se omitieron productos inválidos del carrito guardado.')
+          }
+          setLines(validLines)
+        } else {
+          console.error('El carrito guardado tiene un formato inválido.')
+        }
+      }
+    } catch (error) {
+      console.error('No se pudo restaurar el carrito guardado.', error)
+    } finally {
+      setIsHydrated(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isHydrated) return
+    try {
+      window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(lines))
+    } catch (error) {
+      console.error('No se pudo guardar el carrito.', error)
+    }
+  }, [isHydrated, lines])
 
   const add = useCallback((id: string) => {
     setLines((current) => {

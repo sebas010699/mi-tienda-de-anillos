@@ -44,7 +44,7 @@ export function SiteFooter() {
       <div className="border-t border-paper/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-6 text-xs md:flex-row md:px-8">
           <p>© 2026 Juli y Sebas. Todos los derechos reservados.</p>
-          <p>Pagos seguros procesados por Stripe</p>
+          <p>Pedidos y atención por WhatsApp</p>
         </div>
       </div>
     </footer>

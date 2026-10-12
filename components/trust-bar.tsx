@@ -1,8 +1,8 @@
-import { Gift, ShieldCheck, Sparkles, Truck } from 'lucide-react'
+import { Gift, MessageCircle, Sparkles, Truck } from 'lucide-react'
 
 const ITEMS = [
   { icon: Truck, title: 'Envío gratis', text: 'A toda Colombia en 2 a 5 días' },
-  { icon: ShieldCheck, title: 'Pago seguro', text: 'Tarjetas protegidas con Stripe' },
+  { icon: MessageCircle, title: 'Pedido directo', text: 'Confirma por WhatsApp' },
   { icon: Gift, title: 'Listo para regalar', text: 'Estuche y tarjeta personalizada' },
   { icon: Sparkles, title: 'Garantía', text: '6 meses en todas las piezas' },
 ]

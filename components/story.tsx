@@ -1,12 +1,14 @@
 import Image from 'next/image'
 
+import { siteAsset } from '@/lib/site'
+
 export function Story() {
   return (
     <section id="historia" className="scroll-mt-28 bg-forest text-paper">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-8 md:py-28">
         <div className="relative aspect-square overflow-hidden">
           <Image
-            src="/images/atelier.png"
+            src={siteAsset('/images/atelier.png')}
             alt="Estuche de terciopelo verde con un anillo dorado y tarjeta de regalo"
             fill
             sizes="(min-width: 768px) 50vw, 100vw"

@@ -6,6 +6,7 @@ import { Lock, Minus, Plus, X } from 'lucide-react'
 
 import { useCart } from '@/components/cart-provider'
 import { MAX_QUANTITY_PER_PRODUCT, formatPrice, getProduct } from '@/lib/products'
+import { productImage } from '@/lib/site'
 
 export function CartDrawer() {
   const { lines, subtotal, isOpen, close, setQuantity, remove } = useCart()
@@ -67,7 +68,7 @@ export function CartDrawer() {
                   <li key={line.id} className="flex gap-4 py-5">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={product.image}
+                      src={productImage(product.image)}
                       alt=""
                       className="size-24 shrink-0 bg-ivory object-cover"
                     />
@@ -128,10 +129,10 @@ export function CartDrawer() {
                 className="mt-6 flex w-full items-center justify-center gap-2 bg-forest py-4 text-[11px] tracking-[0.18em] text-paper uppercase transition hover:bg-gold"
               >
                 <Lock className="size-3.5" aria-hidden="true" />
-                Pagar de forma segura
+                Finalizar pedido por WhatsApp
               </Link>
               <p className="mt-3 text-center text-xs text-muted">
-                Pago cifrado y procesado por Stripe
+                Confirma tu pedido y coordina el pago por WhatsApp
               </p>
             </div>
           </>

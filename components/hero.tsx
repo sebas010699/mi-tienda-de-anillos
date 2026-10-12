@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { siteAsset } from '@/lib/site'
+
 export function Hero() {
   return (
     <section className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 md:grid-cols-2 md:gap-16 md:px-8 md:py-20">
@@ -33,7 +35,7 @@ export function Hero() {
           {[
             ['+1.200', 'Clientes felices'],
             ['4.9/5', 'Valoración'],
-            ['100%', 'Pago seguro'],
+            ['Directo', 'Atención por WhatsApp'],
           ].map(([value, label]) => (
             <div key={label}>
               <dt className="sr-only">{label}</dt>
@@ -46,7 +48,7 @@ export function Hero() {
       <div className="relative">
         <div className="relative aspect-[4/5] overflow-hidden bg-line">
           <Image
-            src="/images/hero.png"
+            src={siteAsset('/images/hero.png')}
             alt="Mano con anillos dorados sobre seda color marfil"
             fill
             priority

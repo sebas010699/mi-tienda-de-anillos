@@ -7,7 +7,7 @@ const QUESTIONS = [
   },
   {
     q: '¿Qué métodos de pago aceptan?',
-    a: 'Aceptamos tarjetas de crédito y débito a través de Stripe, una plataforma de pagos segura y cifrada. También puedes coordinar tu compra por WhatsApp.',
+    a: 'Escríbenos por WhatsApp para confirmar tu pedido y coordinar el método de pago disponible.',
   },
   {
     q: '¿Cómo sé mi talla?',

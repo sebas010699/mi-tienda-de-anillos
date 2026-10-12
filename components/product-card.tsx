@@ -3,6 +3,7 @@
 import { useCart } from '@/components/cart-provider'
 import { whatsappLink } from '@/components/whatsapp-button'
 import { formatPrice, type Product } from '@/lib/products'
+import { productImage } from '@/lib/site'
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart()
@@ -12,7 +13,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="relative aspect-[4/5] overflow-hidden bg-paper">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={product.image}
+          src={productImage(product.image)}
           alt={product.name}
           loading="lazy"
           className="size-full object-cover transition duration-700 group-hover:scale-105"
