@@ -10,12 +10,14 @@ const ITEMS = [
 export function TrustBar() {
   return (
     <section aria-label="Beneficios" className="border-y border-line bg-paper">
-      <ul className="mx-auto grid max-w-7xl grid-cols-2 gap-y-8 px-5 py-10 md:grid-cols-4 md:px-8">
+      <ul className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-y divide-line/80 px-5 md:grid-cols-4 md:divide-y-0 md:px-8">
         {ITEMS.map(({ icon: Icon, title, text }) => (
-          <li key={title} className="flex flex-col items-center gap-2 px-3 text-center">
-            <Icon className="size-5 text-gold" strokeWidth={1.5} aria-hidden="true" />
-            <p className="mt-1 font-serif text-lg text-ink">{title}</p>
-            <p className="text-xs text-muted">{text}</p>
+          <li key={title} className="flex items-center gap-3 px-3 py-5 first:pl-0 last:pr-0 sm:justify-center sm:px-5 md:py-7">
+            <Icon className="size-5 shrink-0 text-gold" strokeWidth={1.5} aria-hidden="true" />
+            <div>
+              <p className="font-serif text-base text-ink sm:text-lg">{title}</p>
+              <p className="mt-1 text-[10px] leading-relaxed text-muted sm:text-xs">{text}</p>
+            </div>
           </li>
         ))}
       </ul>

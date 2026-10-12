@@ -6,7 +6,7 @@ import { Lock, Minus, Plus, X } from 'lucide-react'
 
 import { useCart } from '@/components/cart-provider'
 import { MAX_QUANTITY_PER_PRODUCT, formatPrice } from '@/lib/products'
-import { productImage } from '@/lib/site'
+import { productImage, siteAsset } from '@/lib/site'
 
 export function CartDrawer() {
   const { lines, products, subtotal, isOpen, close, setQuantity, remove } = useCart()
@@ -50,13 +50,13 @@ export function CartDrawer() {
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
             <p className="font-serif text-2xl text-ink">Tu bolsa está vacía</p>
             <p className="text-sm text-muted">Descubre piezas pensadas para ti.</p>
-            <Link
-              href="/#coleccion"
+            <a
+              href={siteAsset('/#coleccion')}
               onClick={close}
               className="mt-2 bg-forest px-8 py-4 text-[11px] tracking-[0.18em] text-paper uppercase transition hover:bg-gold"
             >
               Ver colección
-            </Link>
+            </a>
           </div>
         ) : (
           <>

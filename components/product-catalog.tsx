@@ -36,7 +36,7 @@ function Chip({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`border px-4 py-2 text-[11px] tracking-[0.16em] uppercase transition ${
+      className={`rounded-full border px-4 py-2 text-[10px] tracking-[0.14em] uppercase transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
         active
           ? 'border-forest bg-forest text-paper'
           : 'border-line bg-paper text-ink hover:border-gold hover:text-gold'
@@ -78,9 +78,9 @@ export function ProductCatalog() {
   }
 
   return (
-    <div className="mt-14">
+    <div className="mt-10">
       <div className="flex flex-col gap-6 border-y border-line py-6">
-        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar por categoría">
+        <div className="flex flex-wrap items-center gap-2.5" role="group" aria-label="Filtrar por categoría">
           <Chip active={category === 'todas'} onClick={() => setCategory('todas')}>
             Todas
           </Chip>
@@ -94,7 +94,7 @@ export function ProductCatalog() {
         {inventoryStatus !== 'ready' && (
           <p
             role={inventoryStatus === 'error' ? 'alert' : 'status'}
-            className="mt-6 border border-line bg-paper px-4 py-3 text-sm text-muted"
+            className="border border-line bg-ivory px-4 py-3 text-sm text-muted"
           >
             {inventoryStatus === 'loading'
               ? 'Conectando con el inventario...'
@@ -107,11 +107,11 @@ export function ProductCatalog() {
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-wrap items-end gap-4">
             <label className="flex flex-col gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted uppercase">Metal</span>
+              <span className="text-[9px] tracking-[0.18em] text-muted uppercase">Metal</span>
               <select
                 value={metal}
                 onChange={(e) => setMetal(e.target.value as Metal | 'todos')}
-                className="min-w-36 border border-line bg-paper px-3 py-2.5 text-sm text-ink focus:border-gold focus:outline-none"
+                className="min-w-36 border border-line bg-paper px-3 py-2.5 text-sm text-ink outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/15"
               >
                 <option value="todos">Todos</option>
                 {METALS.map((m) => (
@@ -122,11 +122,11 @@ export function ProductCatalog() {
               </select>
             </label>
             <label className="flex flex-col gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted uppercase">Precio</span>
+              <span className="text-[9px] tracking-[0.18em] text-muted uppercase">Precio</span>
               <select
                 value={price}
                 onChange={(e) => setPrice(e.target.value as PriceRange)}
-                className="min-w-48 border border-line bg-paper px-3 py-2.5 text-sm text-ink focus:border-gold focus:outline-none"
+                className="min-w-48 border border-line bg-paper px-3 py-2.5 text-sm text-ink outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/15"
               >
                 {PRICE_RANGES.map((r) => (
                   <option key={r.value} value={r.value}>
@@ -139,7 +139,7 @@ export function ProductCatalog() {
               <button
                 type="button"
                 onClick={reset}
-                className="py-2.5 text-[11px] tracking-[0.16em] text-muted uppercase underline-offset-4 hover:text-gold hover:underline"
+                className="py-2.5 text-[10px] tracking-[0.14em] text-muted uppercase underline-offset-4 transition-colors hover:text-gold hover:underline"
               >
                 Limpiar filtros
               </button>
@@ -151,11 +151,11 @@ export function ProductCatalog() {
               {filtered.length} {filtered.length === 1 ? 'pieza' : 'piezas'}
             </p>
             <label className="flex flex-col gap-1.5">
-              <span className="text-[10px] tracking-[0.2em] text-muted uppercase">Ordenar</span>
+              <span className="text-[9px] tracking-[0.18em] text-muted uppercase">Ordenar</span>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as Sort)}
-                className="min-w-44 border border-line bg-paper px-3 py-2.5 text-sm text-ink focus:border-gold focus:outline-none"
+                className="min-w-44 border border-line bg-paper px-3 py-2.5 text-sm text-ink outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/15"
               >
                 <option value="destacados">Destacados</option>
                 <option value="precio-asc">Precio: menor a mayor</option>
@@ -168,7 +168,7 @@ export function ProductCatalog() {
       </div>
 
       {filtered.length > 0 ? (
-        <ul className="mt-12 grid grid-cols-2 gap-x-4 gap-y-12 md:gap-x-6 lg:grid-cols-4">
+        <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-12 sm:gap-x-6 md:mt-12 lg:grid-cols-4">
           {filtered.map((product) => (
             <li key={product.id}>
               <ProductCard product={product} />

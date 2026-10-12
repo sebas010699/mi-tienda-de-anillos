@@ -1,12 +1,11 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
 
 import { useCart } from '@/components/cart-provider'
 import { whatsappLink } from '@/components/whatsapp-button'
 import { formatPrice } from '@/lib/products'
-import { productImage } from '@/lib/site'
+import { productImage, siteAsset } from '@/lib/site'
 
 export function CheckoutView() {
   const { lines, products, inventoryStatus, inventoryError, subtotal, submitOrder } = useCart()
@@ -18,12 +17,12 @@ export function CheckoutView() {
       <div className="mx-auto flex max-w-lg flex-col items-center py-10 text-center">
         <h1 className="font-serif text-4xl text-ink">Tu bolsa está vacía</h1>
         <p className="mt-4 text-muted">Añade una pieza de la colección para continuar.</p>
-        <Link
-          href="/#coleccion"
+        <a
+          href={siteAsset('/#coleccion')}
           className="mt-8 bg-forest px-8 py-4 text-[11px] tracking-[0.18em] text-paper uppercase transition hover:bg-gold"
         >
           Ver colección
-        </Link>
+        </a>
       </div>
     )
   }
