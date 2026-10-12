@@ -1,19 +1,9 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
 
 import { CartProvider } from '@/components/cart-provider'
 import { CartDrawer } from '@/components/cart-drawer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import './globals.css'
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  style: ['normal', 'italic'],
-  variable: '--font-cormorant',
-})
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
   title: 'Juli y Sebas | Joyería y accesorios exclusivos',
@@ -27,7 +17,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${cormorant.variable} ${inter.variable}`}>
+    <html lang="es">
       <body className="font-sans antialiased">
         <CartProvider>
           {children}

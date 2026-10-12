@@ -11,6 +11,10 @@ export interface CheckoutItem {
 }
 
 export async function startCheckoutSession(items: CheckoutItem[], requestId: string) {
+  if (!stripe) {
+    throw new Error('El checkout de Stripe no está configurado.')
+  }
+
   if (!Array.isArray(items) || items.length === 0) {
     throw new Error('Tu carrito está vacío.')
   }

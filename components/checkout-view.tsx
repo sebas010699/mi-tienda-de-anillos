@@ -8,9 +8,11 @@ import { CheckCircle2, Lock } from 'lucide-react'
 
 import { startCheckoutSession } from '@/app/actions/stripe'
 import { useCart, type CartLine } from '@/components/cart-provider'
+import { whatsappLink } from '@/components/whatsapp-button'
 import { formatPrice, getProduct } from '@/lib/products'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string)
+const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null
 
 export function CheckoutView() {
   const { lines, subtotal, clear } = useCart()
@@ -66,6 +68,36 @@ export function CheckoutView() {
         >
           Ver colección
         </Link>
+      </div>
+    )
+  }
+
+  if (!stripePublishableKey) {
+    const message = [
+      'Hola, quiero finalizar este pedido:',
+      ...orderLines.map((line) => {
+        const product = getProduct(line.id)
+        return product ? `- ${line.quantity} x ${product.name}` : null
+      }).filter(Boolean),
+      `Total: ${formatPrice(orderTotal)}`,
+    ].join('\n')
+
+    return (
+      <div className="mx-auto max-w-2xl border border-line bg-paper p-8 text-center">
+        <p className="text-[11px] tracking-[0.28em] text-gold uppercase">Finalizar compra</p>
+        <h1 className="mt-3 font-serif text-4xl text-ink md:text-5xl">Pago por WhatsApp</h1>
+        <p className="mt-4 leading-relaxed text-muted">
+          El pago con Stripe aún no está configurado. Podemos confirmar tu pedido por WhatsApp y
+          coordinar el pago de forma directa.
+        </p>
+        <a
+          href={whatsappLink(message)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 inline-flex bg-forest px-8 py-4 text-[11px] tracking-[0.18em] text-paper uppercase transition hover:bg-gold"
+        >
+          Enviar pedido
+        </a>
       </div>
     )
   }
