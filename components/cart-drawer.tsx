@@ -5,11 +5,11 @@ import { useEffect } from 'react'
 import { Lock, Minus, Plus, X } from 'lucide-react'
 
 import { useCart } from '@/components/cart-provider'
-import { MAX_QUANTITY_PER_PRODUCT, formatPrice, getProduct } from '@/lib/products'
+import { MAX_QUANTITY_PER_PRODUCT, formatPrice } from '@/lib/products'
 import { productImage } from '@/lib/site'
 
 export function CartDrawer() {
-  const { lines, subtotal, isOpen, close, setQuantity, remove } = useCart()
+  const { lines, products, subtotal, isOpen, close, setQuantity, remove } = useCart()
 
   useEffect(() => {
     if (!isOpen) return
@@ -62,7 +62,7 @@ export function CartDrawer() {
           <>
             <ul className="flex-1 divide-y divide-line overflow-y-auto px-6">
               {lines.map((line) => {
-                const product = getProduct(line.id)
+                const product = products.find((entry) => entry.id === line.id)
                 if (!product) return null
                 return (
                   <li key={line.id} className="flex gap-4 py-5">
@@ -102,7 +102,7 @@ export function CartDrawer() {
                         <button
                           type="button"
                           onClick={() => setQuantity(line.id, line.quantity + 1)}
-                          disabled={line.quantity >= MAX_QUANTITY_PER_PRODUCT}
+                          disabled={line.quantity >= Math.min(product.stock ?? 0, MAX_QUANTITY_PER_PRODUCT)}
                           className="p-2 text-ink transition hover:text-gold disabled:opacity-30"
                         >
                           <Plus className="size-3" aria-hidden="true" />

@@ -21,6 +21,7 @@ export function SiteFooter() {
             <li><Link href="/#coleccion" className="hover:text-paper">Colección</Link></li>
             <li><Link href="/#historia" className="hover:text-paper">Nuestra historia</Link></li>
             <li><Link href="/#preguntas" className="hover:text-paper">Preguntas frecuentes</Link></li>
+            <li><Link href="/admin/" className="hover:text-paper">Administración</Link></li>
           </ul>
         </nav>
         <div>

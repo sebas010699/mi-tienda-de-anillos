@@ -1,12 +1,29 @@
 'use client'
 
+import { useState } from 'react'
+
 import { useCart } from '@/components/cart-provider'
 import { whatsappLink } from '@/components/whatsapp-button'
 import { formatPrice, type Product } from '@/lib/products'
 import { productImage } from '@/lib/site'
 
 export function ProductCard({ product }: { product: Product }) {
-  const { add } = useCart()
+  const { add, inventoryStatus } = useCart()
+  const [message, setMessage] = useState('')
+  const unavailable = inventoryStatus !== 'ready' || !product.stock
+
+  function addToCart() {
+    const result = add(product.id)
+    setMessage(
+      result === 'unavailable'
+        ? 'El inventario no está disponible.'
+        : result === 'out-of-stock'
+          ? 'Esta pieza está agotada.'
+          : result === 'limit'
+            ? 'No hay más unidades disponibles.'
+            : '',
+    )
+  }
 
   return (
     <article className="group flex h-full flex-col">
@@ -25,10 +42,15 @@ export function ProductCard({ product }: { product: Product }) {
         )}
         <button
           type="button"
-          onClick={() => add(product.id)}
-          className="absolute inset-x-3 bottom-3 hidden translate-y-2 bg-forest py-3.5 text-[11px] tracking-[0.18em] text-paper uppercase opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100 hover:bg-gold focus-visible:translate-y-0 focus-visible:opacity-100 md:block"
+          onClick={addToCart}
+          disabled={unavailable}
+          className="absolute inset-x-3 bottom-3 hidden translate-y-2 bg-forest py-3.5 text-[11px] tracking-[0.18em] text-paper uppercase opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100 hover:bg-gold focus-visible:translate-y-0 focus-visible:opacity-100 disabled:cursor-not-allowed disabled:bg-muted md:block"
         >
-          Añadir a la bolsa
+          {inventoryStatus !== 'ready'
+            ? 'Inventario no disponible'
+            : product.stock === 0
+              ? 'Agotado'
+              : 'Añadir a la bolsa'}
         </button>
       </div>
       <div className="flex flex-1 flex-col pt-5">
@@ -37,13 +59,26 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="shrink-0 text-sm font-medium text-forest">{formatPrice(product.priceInPesos)}</p>
         </div>
         <p className="mt-2 text-sm leading-relaxed text-muted">{product.description}</p>
+        <p className="mt-2 text-xs text-muted">
+          {product.stock === undefined
+            ? 'Inventario sin confirmar'
+            : product.stock === 0
+              ? 'Agotado'
+              : `${product.stock} ${product.stock === 1 ? 'unidad disponible' : 'unidades disponibles'}`}
+        </p>
+        {message && <p role="status" className="mt-2 text-xs text-red-800">{message}</p>}
         <div className="mt-auto flex flex-col gap-2 pt-5">
           <button
             type="button"
-            onClick={() => add(product.id)}
-            className="bg-forest py-3.5 text-[11px] tracking-[0.18em] text-paper uppercase transition hover:bg-gold md:hidden"
+            onClick={addToCart}
+            disabled={unavailable}
+            className="bg-forest py-3.5 text-[11px] tracking-[0.18em] text-paper uppercase transition hover:bg-gold disabled:cursor-not-allowed disabled:bg-muted md:hidden"
           >
-            Añadir a la bolsa
+            {inventoryStatus !== 'ready'
+              ? 'Inventario no disponible'
+              : product.stock === 0
+                ? 'Agotado'
+                : 'Añadir a la bolsa'}
           </button>
           <a
             href={whatsappLink(`Hola, quiero información sobre el ${product.name}.`)}

@@ -7,6 +7,8 @@ export interface Product {
   category: Category
   metal: Metal
   tag?: string
+  stock?: number
+  active?: boolean
 }
 
 export type Category = 'animales' | 'flores' | 'minimalista' | 'statement'

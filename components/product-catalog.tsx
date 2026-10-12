@@ -1,11 +1,11 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useCart } from '@/components/cart-provider'
 import { ProductCard } from '@/components/product-card'
 import {
   CATEGORIES,
   METALS,
-  PRODUCTS,
   formatPrice,
   type Category,
   type Metal,
@@ -48,6 +48,7 @@ function Chip({
 }
 
 export function ProductCatalog() {
+  const { products, inventoryStatus, inventoryError } = useCart()
   const [category, setCategory] = useState<Category | 'todas'>('todas')
   const [metal, setMetal] = useState<Metal | 'todos'>('todos')
   const [price, setPrice] = useState<PriceRange>('todos')
@@ -55,7 +56,7 @@ export function ProductCatalog() {
 
   const filtered = useMemo(() => {
     const range = PRICE_RANGES.find((r) => r.value === price)!
-    const list = PRODUCTS.filter(
+    const list = products.filter(
       (p) =>
         (category === 'todas' || p.category === category) &&
         (metal === 'todos' || p.metal === metal) &&
@@ -66,7 +67,7 @@ export function ProductCatalog() {
     if (sort === 'precio-desc') return [...list].sort((a, b) => b.priceInPesos - a.priceInPesos)
     if (sort === 'nombre') return [...list].sort((a, b) => a.name.localeCompare(b.name, 'es'))
     return list
-  }, [category, metal, price, sort])
+  }, [category, metal, price, sort, products])
 
   const hasFilters = category !== 'todas' || metal !== 'todos' || price !== 'todos'
 
@@ -89,6 +90,19 @@ export function ProductCatalog() {
             </Chip>
           ))}
         </div>
+
+        {inventoryStatus !== 'ready' && (
+          <p
+            role={inventoryStatus === 'error' ? 'alert' : 'status'}
+            className="mt-6 border border-line bg-paper px-4 py-3 text-sm text-muted"
+          >
+            {inventoryStatus === 'loading'
+              ? 'Conectando con el inventario...'
+              : inventoryStatus === 'error'
+                ? `No pudimos cargar el inventario: ${inventoryError}`
+                : 'El inventario aún no está conectado. La tienda no puede aceptar pedidos hasta completar la configuración de Supabase.'}
+          </p>
+        )}
 
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-wrap items-end gap-4">
