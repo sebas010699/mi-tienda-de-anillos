@@ -11,7 +11,7 @@ pnpm dev
 
 ## Publicación
 
-Cada cambio en `main` se compila y publica automáticamente en GitHub Pages desde GitHub Actions. La exportación estática incluye la ruta del repositorio para que funcionen los recursos y enlaces en:
+En la primera publicación, selecciona **Settings → Pages → Build and deployment → Source → GitHub Actions** en el repositorio. Después, cada cambio en `main` se compila y publica automáticamente desde GitHub Actions. La exportación estática incluye la ruta del repositorio para que funcionen los recursos y enlaces en:
 
 <https://sebas010699.github.io/mi-tienda-de-anillos./>
 
