@@ -18,12 +18,12 @@ export function Hero() {
           regalar. Producciones limitadas para quienes valoran los detalles.
         </p>
         <div className="mt-9 flex flex-wrap items-center gap-4">
-          <Link
+          <a
             href="#coleccion"
             className="bg-forest px-8 py-4 text-xs font-medium tracking-[0.18em] text-paper uppercase transition hover:bg-gold"
           >
             Descubrir colección
-          </Link>
+          </a>
           <Link
             href="#historia"
             className="border-b border-ink/40 pb-1 text-xs tracking-[0.18em] text-ink uppercase transition hover:border-gold hover:text-gold"
